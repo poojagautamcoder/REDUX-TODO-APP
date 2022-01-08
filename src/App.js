@@ -1,17 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-import Todo from './component/Todo';
-import TodosList from './component/TodosList';
-import { useState } from 'react';
-
+import logo from "./logo.svg";
+import "./App.css";
+import Todo from "./component/Todo";
+import TodosList from "./component/TodosList";
+import { useState } from "react";
+import FilterDynamic from "./component/FilterDynamic";
 
 function App() {
-  const [inputData, setInputData] = useState();
+  const [inputData, setInputData] = useState("");
+  const [editInputData, setEditInputData] = useState("");
   return (
-    <div className="App">
- <Todo inputData = {inputData} setInputData = {setInputData}/>
- <TodosList inputData = {inputData}/>
-
+    <div className="Outerbox">
+      <div className="textend">
+        <Todo inputData={inputData} setInputData={setInputData} />
+        <FilterDynamic />
+        <TodosList
+          inputData={inputData}
+          editInputData={editInputData}
+          setEditInputData={setEditInputData}
+        />
+      </div>
     </div>
   );
 }

@@ -1,13 +1,22 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AllButtons from "../genericcomponent/AllButtons";
 import AllInput from "../genericcomponent/AllInput";
 import styles from "../styles/Form.css";
-import { addTodo } from "../actions/index";
+import { getSubmitReruest } from "../actions/index";
 
 const Todo = (props) => {
   const { inputData, setInputData } = props;
+  const state = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  // enter key
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      getSubmitReruest();
+    }
+    console.log(handleKeyDown);
+  };
   return (
     <div>
       <h2 className="heading">Todos List</h2>
@@ -19,7 +28,10 @@ const Todo = (props) => {
         />
         <AllButtons
           className="btn-addtodo"
-          onClick={() => dispatch(addTodo(inputData), setInputData(""))}
+          onClick={() =>
+            dispatch(getSubmitReruest(inputData), setInputData(""))
+          }
+          onKeyDown={handleKeyDown}
         >
           +
         </AllButtons>

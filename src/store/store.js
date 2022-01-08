@@ -1,7 +1,15 @@
-import { createStore } from 'redux';
-
 import rootReducer from "../reducers/index";
+import { createStore, applyMiddleware  } from 'redux';
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "../saga/rootSaga";
+// we need initial state otherwise , store will freak out
+const initialstate = {};
 
-const store = createStore(rootReducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const sagaMiddleware = createSagaMiddleware();
 
+const store = createStore(
+  rootReducer,initialstate,
+  applyMiddleware(sagaMiddleware)
+);
+sagaMiddleware.run(rootSaga);
 export default store;
