@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../styles/List.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { TiTickOutline } from "react-icons/ti";
@@ -9,14 +9,18 @@ import {
   getFormEditReruest,
   getFormUpdateReruest,
   getChangeEditRequest,
-
+  getFilteredTodoRequest
 } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
 const TodosList = (props) => {
   const list = useSelector((state) => state.TodoReducers.list);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  
+  // useEffect (()=>{
+  //   dispatch(getFilteredTodoRequest)
+  // },[list]);
 
 
 
@@ -33,7 +37,7 @@ const TodosList = (props) => {
                 className="check"
                 onClick={() => dispatch(getFormCheckedReruest( {
                   id : curElem.id,
-                  status : curElem.status
+                 
                 }
                 ))}
                 checked={list.status}
@@ -66,7 +70,10 @@ const TodosList = (props) => {
                     <div className="tick-cross">
                       <button
                         className="cross"
-                        onClick={() => dispatch(getFormEditReruest(curElem.id))}
+                        onClick={() => dispatch(getFormEditReruest({
+                          id : curElem.id,
+                          type : 'cross',
+                        }))}
                       >
                         x
                       </button>
