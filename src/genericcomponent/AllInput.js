@@ -17,3 +17,4 @@ const AllInput = (props) => {
   );
 };
 export default AllInput;
+

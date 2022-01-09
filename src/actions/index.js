@@ -46,4 +46,12 @@ export const getChangeEditSuccess = createAction(
 );
 export const getChangeEditError = createAction(constant.GET_CHANGE_EDIT_ERROR);
 
-
+export const getFilteredTodoRequest = createAction(
+  constant.GET_FILTEREDTODO_REQUEST
+);
+export const getFilteredTodoSuccess = createAction(
+  constant.GET_FILTEREDTODO_SUCCESS
+);
+export const getFilteredTodoError = createAction(
+  constant.GET_FILTEREDTODO_ERROR
+);

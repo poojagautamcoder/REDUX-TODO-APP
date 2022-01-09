@@ -12,6 +12,10 @@ import {
   getFormUpdateEditError,
   getDeleteSuccess,
   getDeleteError,
+  getChangeEditSuccess,
+  getChangeEditError,
+  getFilteredTodoSuccess,
+  getFilteredTodoError
 } from "../actions/index";
 
 export function* Todos(todo) {
@@ -28,6 +32,7 @@ export function* Todos(todo) {
 }
 
 export function* TodoFilter(status) {
+  console.log(status,  "status");
   try {
     if (status) {
       yield put(getFilterSuccess(status.payload));
@@ -35,6 +40,7 @@ export function* TodoFilter(status) {
       yield put(getFilterError({ error: "Data not fetched" }));
     }
   } catch (error) {
+    console.log (error, "filter")
     yield put(getFilterError({ error: "Data not fetched" }));
   }
 }
@@ -43,7 +49,7 @@ export function* TodoChecked(status) {
   console.log(status, "todo");
   try {
     if (status) {
-      console.log(status.payload,"statuscheck")
+      console.log(status.payload, "statuscheck");
       yield put(getFormCheckedSuccess(status.payload));
     } else {
       yield put(getFormCheckedError({ error: "Data not fetched" }));
@@ -76,7 +82,7 @@ export function* TodoUpdate(todo) {
       yield put(getFormUpdateEditError({ error: "Data not fetched" }));
     }
   } catch (error) {
-    console.log(error,"update")
+    console.log(error, "update");
     yield put(getFormUpdateEditError({ error: "Data not fetched" }));
   }
 }
@@ -89,6 +95,7 @@ export function* TodoDelete(data) {
       yield put(getDeleteError({ error: "Data not fetched" }));
     }
   } catch (error) {
+    console.log((error, "error"));
     yield put(getDeleteError({ error: "Data not fetched" }));
   }
 }
@@ -101,6 +108,20 @@ export function* todoChange(editValue) {
       yield put(getChangeEditError({ error: "Data not fetched" }));
     }
   } catch (error) {
+    console.log((error, "error"));
     yield put(getChangeEditError({ error: "Data not fetched" }));
+  }
+}
+
+export function* finalTodo(finalTodo) {
+  try {
+    if (finalTodo.payload) {
+      yield put(getFilteredTodoSuccess(finalTodo.payload));
+    } else {
+      yield put(getFilteredTodoError({ error: "Data not fetched" }));
+    }
+  } catch (error) {
+    console.log((error, "error"));
+    yield put(getFilteredTodoError({ error: "Data not fetched" }));
   }
 }
