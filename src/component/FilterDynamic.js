@@ -35,9 +35,3 @@ const FilterDynamic = () => {
   );
 };
 export default FilterDynamic;
-
-
-
-
-
-

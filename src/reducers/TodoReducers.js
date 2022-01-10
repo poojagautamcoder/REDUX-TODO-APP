@@ -13,8 +13,8 @@ const initialData = {
 };
 
 const TodoReducers = (state = initialData, action) => {
-  console.log(action, "status");
   switch (action.type) {
+    // FORM SUBMIT REQUEST
     case actions.GET_SUBMIT_REQUEST:
       return {
         ...state,
@@ -48,6 +48,7 @@ const TodoReducers = (state = initialData, action) => {
         isError: true,
       };
 
+    // FORM DELETE REQUEST:
     case actions.GET_DELETE_REQUEST:
       return {
         ...state,
@@ -73,7 +74,7 @@ const TodoReducers = (state = initialData, action) => {
         issuccess: false,
         isError: true,
       };
-
+    // FORM CHECKED REQUEST:
     case actions.GET_FORM_CHECKED_REQUEST:
       return {
         ...state,
@@ -109,9 +110,7 @@ const TodoReducers = (state = initialData, action) => {
         isError: true,
       };
 
-
-
-      // FILTER THE TODOS REQUEST:
+    // FILTER THE TODOS REQUEST:
     case actions.GET_FILTER_REQUEST:
       return {
         ...state,
@@ -121,21 +120,19 @@ const TodoReducers = (state = initialData, action) => {
       };
 
     case actions.GET_FILTER_SUCCESS:
-      if (value === "all") {
+      if (action.payload === "all") {
         return {
           ...state,
-          filteredItem: [...list],
+          filteredItem: [...state.list],
         };
-      } else if (value === "completed") {
-       
-         const filterValue = list.filter((todo) => todo.status === true);
+      } else if (action.payload === "completed") {
+        const filterValue = state.list.filter((todo) => todo.status === true);
         return {
           ...state,
           filteredItem: filterValue,
         };
-      } else if (value === "incomplete") {
-        
-         const filterValue = list.filter((todo) => todo.status === false);
+      } else if (action.payload === "incomplete") {
+        const filterValue = state.list.filter((todo) => todo.status === false);
         return {
           ...state,
           filteredItem: filterValue,
@@ -147,40 +144,15 @@ const TodoReducers = (state = initialData, action) => {
         issuccess: true,
         isError: false,
       };
-      case actions.GET_FILTER_ERROR:
-        return {
-          ...state,
-          isLoading: false,
-          issuccess: false,
-          isError: true,
-        };
+    case actions.GET_FILTER_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        issuccess: false,
+        isError: true,
+      };
 
-      // get all the filtered todos request:
-      case actions.GET_FILTEREDTODO_REQUEST:
-        return{
-          ...state,
-          isLoading: true,
-          issuccess: false,
-          isError: false,
-        }
-      case actions.GET_FILTEREDTODO_SUCCESS:
-        return{
-          ...state,
-          filteredItem: [...list],
-          isLoading: false,
-          issuccess: true,
-          isError: false,
-        }
-
-        case actions.GET_FILTEREDTODO_ERROR:
-          return{
-            ...state,
-            isLoading: false,
-            issuccess: false,
-            isError: true,
-          }
-     
-      // FORM EDIT REQUEST:
+    // FORM EDIT REQUEST:
     case actions.GET_FORM_EDIT_REQUEST:
       return {
         ...state,
@@ -219,9 +191,7 @@ const TodoReducers = (state = initialData, action) => {
         isError: true,
       };
 
-
-
-    // ONCHANGE REQUEST TO EDIT THE FORM:  
+    // ONCHANGE REQUEST TO EDIT THE FORM:
     case actions.GET_CHANGE_EDIT_REQUEST:
       return {
         ...state,
@@ -256,9 +226,7 @@ const TodoReducers = (state = initialData, action) => {
         isError: true,
       };
 
-
-
-// FORM EDITED FORM UPDATE REQUEST:
+    // FORM EDITED FORM UPDATE REQUEST:
     case actions.GET_FORM_UPDATE_REQUEST:
       return {
         ...state,

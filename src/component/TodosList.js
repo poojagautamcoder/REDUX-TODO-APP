@@ -9,38 +9,39 @@ import {
   getFormEditReruest,
   getFormUpdateReruest,
   getChangeEditRequest,
-  getFilteredTodoRequest
+  getFilterReruest,
 } from "../actions/index";
 import { useSelector, useDispatch } from "react-redux";
 
 const TodosList = (props) => {
   const list = useSelector((state) => state.TodoReducers.list);
+  const filteredItem = useSelector((state) => state.TodoReducers.filteredItem);
 
   const dispatch = useDispatch();
-  
-  // useEffect (()=>{
-  //   dispatch(getFilteredTodoRequest)
-  // },[list]);
 
-
+  useEffect(() => {
+    dispatch(getFilterReruest("all"));
+  }, [list]);
 
   return (
     <div className="showItems">
-      {list?.map((curElem) => {
+      {filteredItem?.map((curElem) => {
         return (
           <div className="eachItem" key={curElem.id}>
             <div className="result">
               <input
-                id= "id"
+                id="id"
                 type="checkbox"
                 value="checked"
                 className="check"
-                onClick={() => dispatch(getFormCheckedReruest( {
-                  id : curElem.id,
-                 
+                onClick={() =>
+                  dispatch(
+                    getFormCheckedReruest({
+                      id: curElem.id,
+                    })
+                  )
                 }
-                ))}
-                checked={list.status}
+                checked={curElem.status}
               />
             </div>
 
@@ -70,10 +71,14 @@ const TodosList = (props) => {
                     <div className="tick-cross">
                       <button
                         className="cross"
-                        onClick={() => dispatch(getFormEditReruest({
-                          id : curElem.id,
-                          type : 'cross',
-                        }))}
+                        onClick={() =>
+                          dispatch(
+                            getFormEditReruest({
+                              id: curElem.id,
+                              type: "cross",
+                            })
+                          )
+                        }
                       >
                         x
                       </button>

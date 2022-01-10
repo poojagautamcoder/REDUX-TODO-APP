@@ -10,13 +10,6 @@ const Todo = (props) => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  // enter key
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      getSubmitReruest();
-    }
-    console.log(handleKeyDown);
-  };
   return (
     <div>
       <h2 className="heading">Todos List</h2>
@@ -31,7 +24,6 @@ const Todo = (props) => {
           onClick={() =>
             dispatch(getSubmitReruest(inputData), setInputData(""))
           }
-          onKeyDown={handleKeyDown}
         >
           +
         </AllButtons>
